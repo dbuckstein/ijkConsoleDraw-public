@@ -167,10 +167,12 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\source\ijk-player\common\ijk-player.c" />
     <ClCompile Include="..\..\..\source\ijk-player\common\_util\ijkConsole_win.c" />
+    <ClCompile Include="..\..\..\source\ijk-player\common\_util\vec3f.c" />
     <ClCompile Include="_platform_win\source\ijk-winmain.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\source\ijk-player\common\_util\ijkConsole.h" />
+    <ClInclude Include="..\..\..\source\ijk-player\common\_util\vec3f.h" />
     <ClInclude Include="ijk-player.rc.h" />
   </ItemGroup>
   <ItemGroup>
@@ -181,6 +183,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\resource\ijk-player\_util\ijk-plugin-info.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\source\ijk-player\common\_util\vec3f.inl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

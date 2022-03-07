@@ -42,6 +42,9 @@
     <ClCompile Include="..\..\..\source\ijk-player\common\_util\ijkConsole_win.c">
       <Filter>Source Files\common\_util</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\source\ijk-player\common\_util\vec3f.c">
+      <Filter>Source Files\common\_util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ijk-player.rc">
@@ -60,10 +63,18 @@
     <ClInclude Include="..\..\..\source\ijk-player\common\_util\ijkConsole.h">
       <Filter>Source Files\common\_util</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\source\ijk-player\common\_util\vec3f.h">
+      <Filter>Source Files\common\_util</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="..\..\..\resource\ijk-player\_util\ijk-plugin-info.txt">
       <Filter>Resource Files\_util</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\source\ijk-player\common\_util\vec3f.inl">
+      <Filter>Source Files\common\_util</Filter>
+    </None>
   </ItemGroup>
 </Project>
