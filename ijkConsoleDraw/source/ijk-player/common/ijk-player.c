@@ -23,8 +23,7 @@
 	Default source for player application.
 */
 
-#include "_util/ijkConsole.h"
-#include "_util/vec3f.h"
+#include "_util/scene.h"
 
 #include <stdio.h>
 
@@ -114,16 +113,39 @@ ijk_inl bool fRayInitOrtho(sRay* const ray, float3_t const center_eye, float3_t 
 //-----------------------------------------------------------------------------
 // DISPLAY
 
-typedef struct sScene_t
+// Ray hit record
+typedef struct sRecord_t
 {
-	ijkConsoleColor color_bg;
-} sScene;
+	ui16 type, index;
+	float_t dist;
+} sRecord;
 
-ijk_inl void fSceneInit(sScene* const scene)
+// Test ray against sphere
+ijk_inl bool fRayTestSphere(sRay const* const ray, sScene const* const scene, ui16 const shapeIndex, sRecord* const hit_out)
 {
-	scene->color_bg = ijkConsoleColor_grey_d;
+	assert(shapeIndex < scene_numSpheres);
+
+	vec3f location;
+	float_t radius;
+	fSphereGet(scene, shapeIndex, &location, &radius);
+
+	return true;
 }
 
+// Test ray against finite cylinder
+ijk_inl bool fRayTestCylinderFinite(sRay const* const ray, sScene const* const scene, ui16 const shapeIndex, sRecord* const hit_out)
+{
+	assert(shapeIndex < scene_numCylinders);
+
+	vec3f location_cap0;
+	vec3f location_cap1;
+	float_t radius;
+	fCylinderGet(scene, shapeIndex, &location_cap0, &location_cap1, &radius);
+
+	return true;
+}
+
+// Calculate final color from ray in scene
 ijk_inl void fRayCalcColor(sRay const* const ray, sScene const* const scene, ijkConsoleColor* const color_out)
 {
 	*color_out = scene->color_bg;

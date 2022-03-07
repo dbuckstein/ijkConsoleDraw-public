@@ -19,7 +19,7 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	vec3.inl
+	vec3f.inl
 	Simple 3D float vector implementation.
 */
 
@@ -48,6 +48,17 @@ ijk_inl bool fIsNonZero(float_t const s)
 ijk_inl float_t fRecip(float_t const s)
 {
 	return (fIsNonZero(s) ? 1.0f / s : 0.0f);
+}
+
+ijk_inl float_t fSqrt(float_t const s)
+{
+	extern f64 sqrt(f64);
+	return (float_t)sqrt((f64)s);
+}
+
+ijk_inl float_t fSqrtInv(float_t const s)
+{
+	return (fIsNonZero(s) ? 1.0f / fSqrt(s) : 0.0f);
 }
 
 ijk_inl float_t fLerp(float_t const s0, float_t const s1, float_t const u)
@@ -101,9 +112,9 @@ ijk_inl float_t vec3fDot(float3_t const v_lh, float3_t const v_rh)
 ijk_inl floatv_t vec3fCross(float3_t v_out, float3_t const v_lh, float3_t const v_rh)
 {
 	float3_t const cross = {
-		v_lh[1] * v_rh[2] - v_lh[2] * v_rh[1],
-		v_lh[2] * v_rh[0] - v_lh[0] * v_rh[2],
-		v_lh[0] * v_rh[1] - v_lh[1] * v_rh[0],
+		(v_lh[1] * v_rh[2] - v_lh[2] * v_rh[1]),
+		(v_lh[2] * v_rh[0] - v_lh[0] * v_rh[2]),
+		(v_lh[0] * v_rh[1] - v_lh[1] * v_rh[0]),
 	};
 	return vec3fCopy(v_out, cross);
 }
@@ -115,9 +126,7 @@ ijk_inl float_t vec3fLenSq(float3_t const v)
 
 ijk_inl float_t vec3fLen(float3_t const v)
 {
-	extern f64 sqrt(f64);
-	float_t const lenSq = vec3fLenSq(v);
-	return (float_t)sqrt((f64)lenSq);
+	return fSqrt(vec3fLenSq(v));
 }
 
 ijk_inl float_t vec3fLenSqInv(float3_t const v)
@@ -128,9 +137,8 @@ ijk_inl float_t vec3fLenSqInv(float3_t const v)
 
 ijk_inl float_t vec3fLenInv(float3_t const v)
 {
-	extern f64 sqrt(f64);
 	float_t const lenSq = vec3fLenSq(v);
-	return (lenSq > epsf ? 1.0f / (float_t)sqrt((f64)lenSq) : 0.0f);
+	return (lenSq > epsf ? 1.0f / fSqrt(lenSq) : 0.0f);
 }
 
 ijk_inl floatv_t vec3fAdd(float3_t v_out, float3_t const v_lh, float3_t const v_rh)
@@ -159,8 +167,7 @@ ijk_inl floatv_t vec3fMul(float3_t v_out, float3_t const v_lh, float_t const s_r
 
 ijk_inl floatv_t vec3fDiv(float3_t v_out, float3_t const v_lh, float_t const s_rh)
 {
-	float_t const recip = fRecip(s_rh);
-	return vec3fMul(v_out, v_lh, recip);
+	return vec3fMul(v_out, v_lh, fRecip(s_rh));
 }
 
 ijk_inl floatv_t vec3fLerp(float3_t v_out, float3_t const v0, float3_t const v1, float_t const u)
@@ -192,8 +199,7 @@ ijk_inl floatv_t vec3fProj(float3_t v_out, float3_t const v_base, float3_t const
 
 ijk_inl floatv_t vec3fUnit(float3_t v_out, float3_t const v)
 {
-	float_t const lenSqInv = vec3fLenSqInv(v);
-	return vec3fMul(v_out, v, lenSqInv);
+	return vec3fMul(v_out, v, vec3fLenInv(v));
 }
 
 ijk_inl float_t vec3fDistSq(float3_t const v_lh, float3_t const v_rh)

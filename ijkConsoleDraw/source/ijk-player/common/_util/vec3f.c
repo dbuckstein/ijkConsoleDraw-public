@@ -19,7 +19,7 @@
 		c-based rendering framework
 	By Daniel S. Buckstein
 
-	vec3.c
+	vec3f.c
 	Simple 3D float vector internal implementation.
 */
 
