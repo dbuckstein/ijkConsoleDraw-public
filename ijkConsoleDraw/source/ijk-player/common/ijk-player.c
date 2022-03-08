@@ -113,6 +113,18 @@ ijk_inl bool fRayInitOrtho(sRay* const ray, float3_t const center_eye, float3_t 
 //-----------------------------------------------------------------------------
 // DISPLAY
 
+// ****TO-DO: read me
+//	Hello! Your goal is to generate a very primitive ray-traced scene directly 
+//	in the console.  This is the only file you should modify and submit, but 
+//	have a look at the following header files to see what tools you have: 
+//		-> "_utils/vec3f.h" - basic 3D float vector interface
+//		-> "_utils/scene.h" - scene descriptor (already set up and final)
+//	Please do the following: 
+//		-> Implement the blocks that say ****TO-DO
+//		-> Write lots of comments to document your thoughts
+//		-> Submit ONLY THIS FILE when you are done; follow Canvas instructions
+//		-> Have fun!
+
 // Ray hit record
 typedef struct sRecord_t
 {
@@ -129,6 +141,10 @@ ijk_inl bool fRayTestSphere(sRay const* const ray, sScene const* const scene, ui
 	float_t radius;
 	fSphereGet(scene, shapeIndex, &location, &radius);
 
+	// ****TO-DO: implement me
+	//	-> if we hit something, write record and return true
+	//	-> if we did not hit something, return false
+
 	return true;
 }
 
@@ -142,12 +158,20 @@ ijk_inl bool fRayTestCylinderFinite(sRay const* const ray, sScene const* const s
 	float_t radius;
 	fCylinderGet(scene, shapeIndex, &location_cap0, &location_cap1, &radius);
 
+	// NOTE: implement me instead of spheres for one bonus point (same idea, different algorithm)
+
 	return true;
 }
 
 // Calculate final color from ray in scene
 ijk_inl void fRayCalcColor(sRay const* const ray, sScene const* const scene, ijkConsoleColor* const color_out)
 {
+	// ****TO-DO: call the ray tests here and perform shading; there are two parts to this: 
+	//	1) keep track of the closest hit
+	//	2) use the closest hit to calculate shading; there is enough information in the scene to calculate 
+	//		the diffuse/Lambertian coefficient, which is used to estimate the color to pass back; the fail 
+	//		case is to pass back the background color
+
 	*color_out = scene->color_bg;
 }
 
